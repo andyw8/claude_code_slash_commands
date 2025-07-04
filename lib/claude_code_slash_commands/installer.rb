@@ -13,16 +13,16 @@ module ClaudeCodeSlashCommands
 
     def install
       ensure_target_directory
-      
+
       if command_files.empty?
         puts "❌ No command files found to install"
         return
       end
-      
+
       command_files.each do |file|
         install_command(file)
       end
-      
+
       puts "✅ Installation complete!"
     rescue => e
       puts "❌ Installation failed: #{e.message}"
@@ -41,19 +41,19 @@ module ClaudeCodeSlashCommands
 
     def install_command(source_file)
       target_file = @commands_target.join(source_file.basename)
-      
+
       if target_file.exist?
         if files_identical?(source_file, target_file)
           puts "⏭️  #{source_file.basename} already exists and is identical"
           return
         end
-        
+
         unless confirm_overwrite(source_file.basename)
           puts "⏭️  Skipping #{source_file.basename}"
           return
         end
       end
-      
+
       FileUtils.cp(source_file, target_file)
       puts "📄 Installed #{source_file.basename}"
     end

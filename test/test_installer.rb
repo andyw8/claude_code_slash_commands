@@ -8,9 +8,9 @@ class TestInstaller < Minitest::Test
     @tmp_dir = Dir.mktmpdir
     @commands_dir = File.join(@tmp_dir, "commands")
     @target_dir = File.join(@tmp_dir, ".claude", "commands")
-    
+
     Dir.mkdir(@commands_dir)
-    
+
     @installer = ClaudeCodeSlashCommands::Installer.new
     @installer.instance_variable_set(:@commands_source, Pathname.new(@commands_dir))
     @installer.instance_variable_set(:@commands_target, Pathname.new(@target_dir))
@@ -22,16 +22,16 @@ class TestInstaller < Minitest::Test
 
   def test_installs_command_files
     File.write(File.join(@commands_dir, "test.md"), "# Test command")
-    
+
     @installer.install
-    
+
     assert File.exist?(File.join(@target_dir, "test.md"))
     assert_equal "# Test command", File.read(File.join(@target_dir, "test.md"))
   end
 
   def test_creates_target_directory
     File.write(File.join(@commands_dir, "test.md"), "# Test command")
-    
+
     refute Dir.exist?(@target_dir)
     @installer.install
     assert Dir.exist?(@target_dir)
@@ -39,7 +39,7 @@ class TestInstaller < Minitest::Test
 
   def test_handles_no_command_files
     output = capture_io { @installer.install }
-    
+
     assert_match(/No command files found/, output.first)
   end
 end
