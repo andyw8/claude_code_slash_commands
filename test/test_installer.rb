@@ -11,9 +11,10 @@ class TestInstaller < Minitest::Test
 
     Dir.mkdir(@commands_dir)
 
-    @installer = ClaudeCodeSlashCommands::Installer.new
-    @installer.instance_variable_set(:@commands_source, Pathname.new(@commands_dir))
-    @installer.instance_variable_set(:@commands_target, Pathname.new(@target_dir))
+    @installer = ClaudeCodeSlashCommands::Installer.new(
+      commands_source: Pathname.new(@commands_dir),
+      commands_target: Pathname.new(@target_dir)
+    )
   end
 
   def teardown

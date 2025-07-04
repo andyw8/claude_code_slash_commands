@@ -5,10 +5,10 @@ require "pathname"
 
 module ClaudeCodeSlashCommands
   class Installer
-    def initialize
+    def initialize(commands_source: nil, commands_target: nil)
       @gem_root = Pathname.new(__dir__).parent.parent
-      @commands_source = @gem_root.join("commands")
-      @commands_target = Pathname.new(Dir.home).join(".claude", "commands")
+      @commands_source = commands_source || @gem_root.join("commands")
+      @commands_target = commands_target || Pathname.new(Dir.home).join(".claude", "commands")
     end
 
     def install
