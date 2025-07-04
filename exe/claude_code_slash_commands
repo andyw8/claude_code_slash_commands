@@ -1,3 +1,6 @@
 #!/usr/bin/env ruby
 
+require "bundler/setup"
 require "claude_code_slash_commands"
+
+ClaudeCodeSlashCommands::CLI.start(ARGV)

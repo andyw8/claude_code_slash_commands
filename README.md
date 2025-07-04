@@ -22,7 +22,44 @@ gem install claude_code_slash_commands
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem provides a tool to distribute custom slash commands for Claude Code.
+
+### Installing Commands
+
+To install the included slash commands to your `~/.claude/commands` directory:
+
+```bash
+claude_code_slash_commands install
+```
+
+This will:
+- Create `~/.claude/commands` directory if it doesn't exist
+- Copy all command files from the gem
+- Ask for confirmation before overwriting existing commands
+- Skip files that are already identical
+
+### Available Commands
+
+- `hello_world.md` - A simple example command that demonstrates the slash command format
+
+### Adding Your Own Commands
+
+To add your own commands to this gem:
+
+1. Create `.md` files in the `commands/` directory
+2. Use YAML frontmatter for metadata (optional)
+3. Write the command prompt in the file content
+
+Example command format:
+```markdown
+---
+description: Brief description of the command
+allowed-tools: Bash(git status:*)
+---
+
+Your command prompt goes here. This text will be used as the instruction
+when the slash command is invoked.
+```
 
 ## Development
 
