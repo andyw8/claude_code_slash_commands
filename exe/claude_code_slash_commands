@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+require "claude_code_slash_commands"
