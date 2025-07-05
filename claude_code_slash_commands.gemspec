@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "A tool for distributing Claude Code slash commands."
   spec.homepage = "https://github.com/andyw8/claude_code_slash_commands"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.1.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
