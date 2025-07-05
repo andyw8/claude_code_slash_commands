@@ -1,6 +1,6 @@
 # claude_code_slash_commands
 
-This gem is for distributing Ruby-specific [custom slash commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands#custom-slash-commands for [Claude Code](https://www.anthropic.com/claude-code).
+This gem is for distributing Ruby-specific [custom slash commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands#custom-slash-commands) for [Claude Code](https://www.anthropic.com/claude-code).
 
 ## Prerequisites
 
