@@ -2,6 +2,10 @@
 
 This gem is intended to distribute [slash commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands) for [Claude Code](https://www.anthropic.com/claude-code).
 
+## Prerequisites
+
+The [GitHub CLI](https://cli.github.com) must be installed and configured.
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
