@@ -41,7 +41,7 @@ module ClaudeCodeSlashCommands
 
     def fetch_commands_from_github
       stdout, stderr, status = Open3.capture3("gh", "api", "repos/#{@repo}/contents/commands")
-      
+
       unless status.success?
         raise "Failed to fetch commands from GitHub: #{stderr}"
       end
@@ -56,7 +56,7 @@ module ClaudeCodeSlashCommands
 
       # Fetch the content of the command file
       stdout, stderr, status = Open3.capture3("gh", "api", command["download_path"])
-      
+
       unless status.success?
         raise "Failed to fetch command content for #{filename}: #{stderr}"
       end

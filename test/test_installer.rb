@@ -31,13 +31,13 @@ class TestInstaller < Minitest::Test
     # Stub the GitHub API calls
     success_status = stub(success?: true)
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns([JSON.generate(commands_response), "", success_status])
+      .returns([JSON.generate(commands_response), "", success_status])
 
     Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
-          .returns([command_content, "", success_status])
+      .returns([command_content, "", success_status])
 
     Open3.stubs(:capture3).with("gh", "api", "test/test-repo/other.md")
-          .returns([command_content, "", success_status])
+      .returns([command_content, "", success_status])
 
     @installer.install
 
@@ -53,10 +53,10 @@ class TestInstaller < Minitest::Test
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns([JSON.generate(commands_response), "", stub(success?: true)])
+      .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
     Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
-          .returns(["# Test", "", stub(success?: true)])
+      .returns(["# Test", "", stub(success?: true)])
 
     refute Dir.exist?(@target_dir)
     @installer.install
@@ -66,7 +66,7 @@ class TestInstaller < Minitest::Test
   def test_handles_no_command_files
     # Mock empty response from GitHub
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns([JSON.generate([]), "", stub(success?: true)])
+      .returns([JSON.generate([]), "", stub(success?: true)])
 
     output = capture_io { @installer.install }
 
@@ -82,13 +82,13 @@ class TestInstaller < Minitest::Test
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns([JSON.generate(commands_response), "", stub(success?: true)])
+      .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
     Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
-          .returns(["# Test", "", stub(success?: true)])
+      .returns(["# Test", "", stub(success?: true)])
 
     Open3.stubs(:capture3).with("gh", "api", "test/test-repo/other.md")
-          .returns(["# Other", "", stub(success?: true)])
+      .returns(["# Other", "", stub(success?: true)])
 
     @installer.install
 
@@ -107,10 +107,10 @@ class TestInstaller < Minitest::Test
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns([JSON.generate(commands_response), "", stub(success?: true)])
+      .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
     Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
-          .returns(["# Test command", "", stub(success?: true)])
+      .returns(["# Test command", "", stub(success?: true)])
 
     output = capture_io { @installer.install }
 
@@ -120,7 +120,7 @@ class TestInstaller < Minitest::Test
   def test_handles_github_api_failure_for_listing_commands
     # Mock failed GitHub API call
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns(["", "API rate limit exceeded", stub(success?: false)])
+      .returns(["", "API rate limit exceeded", stub(success?: false)])
 
     assert_raises(SystemExit) do
       capture_io { @installer.install }
@@ -133,11 +133,11 @@ class TestInstaller < Minitest::Test
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns([JSON.generate(commands_response), "", stub(success?: true)])
+      .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
     # Mock failed command content fetch
     Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
-          .returns(["", "File not found", stub(success?: false)])
+      .returns(["", "File not found", stub(success?: false)])
 
     assert_raises(SystemExit) do
       capture_io { @installer.install }
@@ -147,7 +147,7 @@ class TestInstaller < Minitest::Test
   def test_handles_invalid_json_response
     # Mock invalid JSON response
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
-          .returns(["invalid json", "", stub(success?: true)])
+      .returns(["invalid json", "", stub(success?: true)])
 
     assert_raises(SystemExit) do
       capture_io { @installer.install }
