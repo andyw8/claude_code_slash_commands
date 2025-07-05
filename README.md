@@ -1,6 +1,6 @@
 # claude_code_slash_commands
 
-This gem is intended to distribute [slash commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands) for [Claude Code](https://www.anthropic.com/claude-code).
+This gem is for distributing Ruby-specific [slash commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands) for [Claude Code](https://www.anthropic.com/claude-code).
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ claude_code_slash_commands install
 ```
 
 This will:
-- Create `~/.claude/commands` directory if it doesn't exist
+- Create the `~/.claude/commands` directory if it doesn't exist
 - Copy all command files from the `commands/` directory on GitHub to your local `~/.claude/commands` directory.
 - Ask for confirmation before overwriting existing commands
 - Skip files that are already identical
