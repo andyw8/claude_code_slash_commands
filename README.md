@@ -54,7 +54,7 @@ This is useful for:
 
 ### Available Commands
 
-- `hello_world.md` - A simple example command that demonstrates the slash command format
+Check the `commands/` directory to see what is available.
 
 ## Development
 
