@@ -42,7 +42,7 @@ This will:
 
 By default, commands will be fetched from the gem's GitHub repository. That means you'll always get the latest versions.
 
-To install commands from your local `commands/` directory instead of GitHub:
+To install commands from the gem's `commands/` directory instead of GitHub:
 
 ```bash
 claude_code_slash_commands install --local
