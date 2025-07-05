@@ -21,8 +21,8 @@ class TestInstaller < Minitest::Test
   def test_installs_command_files_from_github
     # Mock GitHub API response for listing commands
     commands_response = [
-      {"name" => "test.md", "type" => "file", "download_url" => "https://example.com/test.md"},
-      {"name" => "other.md", "type" => "file", "download_url" => "https://example.com/other.md"}
+      {"name" => "test.md", "type" => "file", "download_path" => "test/test-repo/test.md"},
+      {"name" => "other.md", "type" => "file", "download_path" => "test/test-repo/other.md"}
     ]
 
     # Mock file content
@@ -33,10 +33,10 @@ class TestInstaller < Minitest::Test
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
           .returns([JSON.generate(commands_response), "", success_status])
 
-    Open3.stubs(:capture3).with("gh", "api", "https://example.com/test.md")
+    Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
           .returns([command_content, "", success_status])
 
-    Open3.stubs(:capture3).with("gh", "api", "https://example.com/other.md")
+    Open3.stubs(:capture3).with("gh", "api", "test/test-repo/other.md")
           .returns([command_content, "", success_status])
 
     @installer.install
@@ -49,13 +49,13 @@ class TestInstaller < Minitest::Test
 
   def test_creates_target_directory
     commands_response = [
-      {"name" => "test.md", "type" => "file", "download_url" => "https://example.com/test.md"}
+      {"name" => "test.md", "type" => "file", "download_path" => "test/test-repo/test.md"}
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
           .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
-    Open3.stubs(:capture3).with("gh", "api", "https://example.com/test.md")
+    Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
           .returns(["# Test", "", stub(success?: true)])
 
     refute Dir.exist?(@target_dir)
@@ -76,18 +76,18 @@ class TestInstaller < Minitest::Test
   def test_filters_only_markdown_files
     # Mock GitHub API response with mixed file types
     commands_response = [
-      {"name" => "test.md", "type" => "file", "download_url" => "https://example.com/test.md"},
-      {"name" => "readme.txt", "type" => "file", "download_url" => "https://example.com/readme.txt"},
-      {"name" => "other.md", "type" => "file", "download_url" => "https://example.com/other.md"}
+      {"name" => "test.md", "type" => "file", "download_path" => "test/test-repo/test.md"},
+      {"name" => "readme.txt", "type" => "file", "download_path" => "test/test-repo/readme.txt"},
+      {"name" => "other.md", "type" => "file", "download_path" => "test/test-repo/other.md"}
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
           .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
-    Open3.stubs(:capture3).with("gh", "api", "https://example.com/test.md")
+    Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
           .returns(["# Test", "", stub(success?: true)])
 
-    Open3.stubs(:capture3).with("gh", "api", "https://example.com/other.md")
+    Open3.stubs(:capture3).with("gh", "api", "test/test-repo/other.md")
           .returns(["# Other", "", stub(success?: true)])
 
     @installer.install
@@ -103,13 +103,13 @@ class TestInstaller < Minitest::Test
     File.write(File.join(@target_dir, "test.md"), "# Test command")
 
     commands_response = [
-      {"name" => "test.md", "type" => "file", "download_url" => "https://example.com/test.md"}
+      {"name" => "test.md", "type" => "file", "download_path" => "test/test-repo/test.md"}
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
           .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
-    Open3.stubs(:capture3).with("gh", "api", "https://example.com/test.md")
+    Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
           .returns(["# Test command", "", stub(success?: true)])
 
     output = capture_io { @installer.install }
@@ -129,14 +129,14 @@ class TestInstaller < Minitest::Test
 
   def test_handles_github_api_failure_for_command_content
     commands_response = [
-      {"name" => "test.md", "type" => "file", "download_url" => "https://example.com/test.md"}
+      {"name" => "test.md", "type" => "file", "download_path" => "test/test-repo/test.md"}
     ]
 
     Open3.stubs(:capture3).with("gh", "api", "repos/test/test-repo/contents/commands")
           .returns([JSON.generate(commands_response), "", stub(success?: true)])
 
     # Mock failed command content fetch
-    Open3.stubs(:capture3).with("gh", "api", "https://example.com/test.md")
+    Open3.stubs(:capture3).with("gh", "api", "test/test-repo/test.md")
           .returns(["", "File not found", stub(success?: false)])
 
     assert_raises(SystemExit) do
