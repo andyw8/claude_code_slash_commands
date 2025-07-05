@@ -30,7 +30,7 @@ claude_code_slash_commands install
 
 This will:
 - Create `~/.claude/commands` directory if it doesn't exist
-- Copy all command files from the gem
+- Copy all command files from the `commands/` directory on GitHub to your local `~/.claude/commands` directory.
 - Ask for confirmation before overwriting existing commands
 - Skip files that are already identical
 
