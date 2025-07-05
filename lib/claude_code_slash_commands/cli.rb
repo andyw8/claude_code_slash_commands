@@ -15,7 +15,8 @@ module ClaudeCodeSlashCommands
     def run
       case @args.first
       when "install"
-        Installer.new.install
+        local = @args.include?("--local")
+        Installer.new(local: local).install
       when "help", "-h", "--help", nil
         show_help
       else
@@ -29,14 +30,18 @@ module ClaudeCodeSlashCommands
 
     def show_help
       puts <<~HELP
-        Usage: claude_code_slash_commands <command>
+        Usage: claude_code_slash_commands <command> [options]
 
         Commands:
           install    Install slash commands to ~/.claude/commands
           help       Show this help message
 
+        Options:
+          --local    Install from local commands/ directory instead of GitHub
+
         Examples:
           claude_code_slash_commands install
+          claude_code_slash_commands install --local
           claude_code_slash_commands help
       HELP
     end

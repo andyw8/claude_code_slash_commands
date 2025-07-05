@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `rake test` - Run the test suite using Minitest
 - `bundle exec rake test` - Run tests with bundler
 - `rake standard` - Run StandardRB linter for code formatting
-- `rake standard:fix` - Auto-fix StandardRB formatting issues  
+- `rake standard:fix` - Auto-fix StandardRB formatting issues
 - `rake` - Run default task (both tests and linting)
 
 ### Gem Development
@@ -19,7 +19,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `bin/console` - Start interactive console with gem loaded
 
 ### CLI Usage
-- `claude_code_slash_commands install` - Install commands to ~/.claude/commands
+- `claude_code_slash_commands install` - Install commands to ~/.claude/commands from GitHub
+- `claude_code_slash_commands install --local` - Install commands from local commands/ directory
 - `claude_code_slash_commands help` - Show help message
 
 ## Architecture

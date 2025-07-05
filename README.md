@@ -38,6 +38,20 @@ This will:
 - Ask for confirmation before overwriting existing commands
 - Skip files that are already identical
 
+#### Local Installation
+
+By default, commands will be fetched from the gem's GitHub repository. That means you'll always get the latest versions.
+
+To install commands from your local `commands/` directory instead of GitHub:
+
+```bash
+claude_code_slash_commands install --local
+```
+
+This is useful for:
+- Testing new commands during development
+- Installing commands when you don't have internet access
+
 ### Available Commands
 
 - `hello_world.md` - A simple example command that demonstrates the slash command format

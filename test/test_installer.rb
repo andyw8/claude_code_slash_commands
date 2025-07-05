@@ -153,4 +153,102 @@ class TestInstaller < Minitest::Test
       capture_io { @installer.install }
     end
   end
+
+  def test_local_install_from_commands_directory
+    # Create a local commands directory with test files
+    local_commands_dir = File.join(@tmp_dir, "commands")
+    FileUtils.mkdir_p(local_commands_dir)
+
+    File.write(File.join(local_commands_dir, "local_test.md"), "# Local test command")
+    File.write(File.join(local_commands_dir, "another_local.md"), "# Another local command")
+    File.write(File.join(local_commands_dir, "not_markdown.txt"), "Not a markdown file")
+
+    local_installer = ClaudeCodeSlashCommands::Installer.new(
+      commands_source: Pathname.new(local_commands_dir),
+      commands_target: Pathname.new(@target_dir),
+      local: true
+    )
+
+    local_installer.install
+
+    assert File.exist?(File.join(@target_dir, "local_test.md"))
+    assert File.exist?(File.join(@target_dir, "another_local.md"))
+    refute File.exist?(File.join(@target_dir, "not_markdown.txt"))
+    assert_equal "# Local test command", File.read(File.join(@target_dir, "local_test.md"))
+    assert_equal "# Another local command", File.read(File.join(@target_dir, "another_local.md"))
+  end
+
+  def test_local_install_with_no_commands_directory
+    # Point to a non-existent directory
+    non_existent_dir = File.join(@tmp_dir, "nonexistent")
+
+    local_installer = ClaudeCodeSlashCommands::Installer.new(
+      commands_source: Pathname.new(non_existent_dir),
+      commands_target: Pathname.new(@target_dir),
+      local: true
+    )
+
+    output = capture_io { local_installer.install }
+
+    assert_match(/No command files found in local commands/, output.first)
+  end
+
+  def test_local_install_with_empty_commands_directory
+    # Create empty commands directory
+    local_commands_dir = File.join(@tmp_dir, "commands")
+    FileUtils.mkdir_p(local_commands_dir)
+
+    local_installer = ClaudeCodeSlashCommands::Installer.new(
+      commands_source: Pathname.new(local_commands_dir),
+      commands_target: Pathname.new(@target_dir),
+      local: true
+    )
+
+    output = capture_io { local_installer.install }
+
+    assert_match(/No command files found in local commands/, output.first)
+  end
+
+  def test_local_install_skips_identical_existing_files
+    # Create local commands directory and target file
+    local_commands_dir = File.join(@tmp_dir, "commands")
+    FileUtils.mkdir_p(local_commands_dir)
+    FileUtils.mkdir_p(@target_dir)
+
+    command_content = "# Same content"
+    File.write(File.join(local_commands_dir, "test.md"), command_content)
+    File.write(File.join(@target_dir, "test.md"), command_content)
+
+    local_installer = ClaudeCodeSlashCommands::Installer.new(
+      commands_source: Pathname.new(local_commands_dir),
+      commands_target: Pathname.new(@target_dir),
+      local: true
+    )
+
+    output = capture_io { local_installer.install }
+
+    assert_match(/already exists and is identical/, output.first)
+  end
+
+  def test_local_install_only_processes_markdown_files
+    # Create local commands directory with mixed file types
+    local_commands_dir = File.join(@tmp_dir, "commands")
+    FileUtils.mkdir_p(local_commands_dir)
+
+    File.write(File.join(local_commands_dir, "command.md"), "# Markdown command")
+    File.write(File.join(local_commands_dir, "readme.txt"), "Text file")
+    File.write(File.join(local_commands_dir, "config.json"), '{"key": "value"}')
+
+    local_installer = ClaudeCodeSlashCommands::Installer.new(
+      commands_source: Pathname.new(local_commands_dir),
+      commands_target: Pathname.new(@target_dir),
+      local: true
+    )
+
+    local_installer.install
+
+    assert File.exist?(File.join(@target_dir, "command.md"))
+    refute File.exist?(File.join(@target_dir, "readme.txt"))
+    refute File.exist?(File.join(@target_dir, "config.json"))
+  end
 end
