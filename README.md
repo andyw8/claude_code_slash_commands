@@ -56,6 +56,10 @@ This is useful for:
 
 Check the `commands/` directory to see what is available.
 
+### Using the Commands
+
+In your Claude Code session, type `/ruby--`  and you will the list of available commands.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
