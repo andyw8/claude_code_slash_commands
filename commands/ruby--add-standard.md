@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), WebFetch(domain:rubygems.org)
 description: Add standard
 ---
  Add `standardrb` to this repo by following these steps:                                       │
