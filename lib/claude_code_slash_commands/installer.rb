@@ -69,13 +69,20 @@ module ClaudeCodeSlashCommands
       target_file = @commands_target.join(filename)
 
       # Fetch the content of the command file
-      stdout, stderr, status = Open3.capture3("gh", "api", command["download_path"])
+      stdout, stderr, status = Open3.capture3(
+        "gh",
+        "api",
+        "repos/#{@repo}/contents/" + command["path"],
+        "--jq",
+        ".content"
+      )
 
       unless status.success?
         raise "Failed to fetch command content for #{filename}: #{stderr}"
       end
 
       content = stdout
+      content = Base64.decode64(stdout)
 
       if target_file.exist?
         if target_file.read == content
