@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     claude_code_slash_commands (0.2.0)
+      base64
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.3)
+    base64 (0.3.0)
     date (3.4.1)
     erb (5.0.1)
     io-console (0.8.0)

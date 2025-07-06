@@ -4,6 +4,7 @@ require "fileutils"
 require "pathname"
 require "json"
 require "open3"
+require "base64"
 
 module ClaudeCodeSlashCommands
   class Installer
