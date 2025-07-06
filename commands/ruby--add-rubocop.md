@@ -2,7 +2,7 @@
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), WebFetch(domain:rubygems.org)
 description: Add rubocop
 ---
- Add `rubocop` to this repo by following these steps:
+Add `rubocop` to this repo by following these steps:
 
 - Create a new branch
 - Check what the latest release of rubocop is using https://rubygems.org/gems/rubocop/

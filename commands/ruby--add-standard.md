@@ -2,7 +2,7 @@
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), WebFetch(domain:rubygems.org)
 description: Add standard
 ---
- Add `standardrb` to this repo by following these steps:
+Add `standardrb` to this repo by following these steps:
 
 - Create a new branch
 - Check what the latest release of standard is using https://rubygems.org/gems/standard/
