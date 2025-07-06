@@ -81,7 +81,6 @@ module ClaudeCodeSlashCommands
         raise "Failed to fetch command content for #{filename}: #{stderr}"
       end
 
-      content = stdout
       content = Base64.decode64(stdout)
 
       if target_file.exist?
