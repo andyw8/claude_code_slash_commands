@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
+begin
+  require "bundler/setup"
+rescue LoadError
+  # Bundler not available or no Gemfile - just load the gem directly
+end
+
 require "claude_code_slash_commands"
 
 ClaudeCodeSlashCommands::CLI.start(ARGV)
