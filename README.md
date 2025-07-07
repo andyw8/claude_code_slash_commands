@@ -56,6 +56,11 @@ This is useful for:
 
 Check the `commands/` directory to see what is available.
 
+### Safety
+
+Note that some commands have `allowed-tools` already defined, so Claude Code will not prompt you.
+I aim to restrict these to low risk tools such as git usage or web fetching, but you may wish to review before running.
+
 ### Using the Commands
 
 In your Claude Code session, type `/ruby--`  and you will the list of available commands.
