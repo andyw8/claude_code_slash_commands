@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    claude_code_slash_commands (0.2.1)
+    claude_code_slash_commands (0.2.2)
       base64
 
 GEM
