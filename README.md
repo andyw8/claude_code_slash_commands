@@ -4,7 +4,7 @@ This gem is for distributing Ruby-specific [custom slash commands](https://docs.
 
 ## Prerequisites
 
-The [GitHub CLI](https://cli.github.com) must be installed and configured.
+The [GitHub CLI](https://cli.github.com) must be installed and configured. (It's used to fetch files from GitHub without running into rate limits).
 
 ## Installation
 
